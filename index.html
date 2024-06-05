@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calcolatore Potenza Fotovoltaico</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+            background: #f4f4f4;
+            text-align: center;
+        }
+        .frame {
+            border: 2px solid #004E5D;
+            padding: 10px 20px;
+            border-radius: 10px;
+            background-color: white;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .title {
+            font-size: 24px;
+            color: #004E5D;
+            margin: 0;
+        }
+        .subtitle {
+            font-size: 16px;
+            color: #004E5D;
+            margin: 0;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+        }
+        .container h1 {
+            margin-bottom: 20px;
+            color: #004E5D;
+            font-size: 24px;
+        }
+        .input-container {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+        }
+        .container input[type="number"] {
+            width: 80%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+        .container .radio-group {
+            text-align: left;
+            margin: 10px 0;
+        }
+        .container .radio-group-title {
+            font-size: 16px;
+            color: #004E5D;
+            margin-bottom: 5px;
+        }
+        .container label {
+            display: flex;
+            align-items: center;
+            font-size: 16px;
+            color: #004E5D;
+            margin: 5px 0;
+        }
+        .container input[type="radio"] {
+            margin-right: 10px;
+            transform: scale(1.2);
+        }
+        .container button {
+            padding: 12px 20px;
+            background-color: #004E5D;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+            margin-top: 20px;
+        }
+        .container button:hover {
+            background-color: #003B46;
+        }
+        .result, .production, .space {
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 8px;
+            background-color: #e6f7f9;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .result h2, .production h2, .space h2 {
+            margin: 0 0 10px 0;
+            font-size: 20px;
+            color: #004E5D;
+        }
+        .result p, .production p, .space p {
+            margin: 0;
+            font-size: 16px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="frame">
+        <p class="title">A.Z. Servizi</p>
+        <p class="subtitle">Serviti dalla A alla Z</p>
+    </div>
+    <div class="container">
+        <h1>Calcolatore Potenza Fotovoltaico</h1>
+        <div class="input-container">
+            <input type="number" id="consumo" placeholder="Inserisci il consumo annuo (kWh)" />
+        </div>
+        <div class="radio-group">
+            <div class="radio-group-title">Batterie d'accumulo</div>
+            <label>
+                <input type="radio" name="batterie" value="si" />
+                Sì
+            </label>
+            <label>
+                <input type="radio" name="batterie" value="no" />
+                No
+            </label>
+        </div>
+        <div class="radio-group">
+            <div class="radio-group-title">Tipologia Tetto</div>
+            <label>
+                <input type="radio" name="tetto" value="falda" />
+                Falda
+            </label>
+            <label>
+                <input type="radio" name="tetto" value="piano" />
+                Piano
+            </label>
+        </div>
+        <button onclick="calcolaPotenza()">Calcola</button>
+        <div class="result" id="result"></div>
+        <div class="production" id="production"></div>
+        <div class="space" id="space"></div>
+    </div>
+
+    <script>
+        function calcolaPotenza() {
+            const consumoAnnuale = document.getElementById('consumo').value;
+            const batterie = document.querySelector('input[name="batterie"]:checked');
+            const tetto = document.querySelector('input[name="tetto"]:checked');
+            let risultato;
+            let produzione;
+            let spazio;
+
+            if (consumoAnnuale && consumoAnnuale > 0) {
+                if (consumoAnnuale <= 4000) {
+                    risultato = "La potenza di fotovoltaico necessaria è di 3 kW.";
+                    produzione = "4219 kWh annui.";
+                    spazio = tetto.value === "falda" ? "20 mq" : "30 mq";
+                } else if (consumoAnnuale <= 5800) {
+                    risultato = "La potenza di fotovoltaico necessaria è di 4 kW.";
+                    produzione = "5906 kWh annui.";
+                    spazio = tetto.value === "falda" ? "28 mq" : "42 mq";
+                } else if (consumoAnnuale <= 8000) {
+                    risultato = "La potenza di fotovoltaico necessaria è di 6 kW.";
+                    produzione = "9281 kWh annui.";
+                    spazio = tetto.value === "falda" ? "44 mq" : "66 mq";
+                } else {
+                    risultato = "Necessità impianto su misura.";
+                    produzione = "Necessita impianto su misura.";
+                    spazio = "Necessità impianto su misura.";
+                }
+
+                if (batterie && tetto) {
+                    if (batterie.value === "si") {
+                        risultato += " (con batterie d'accumulo)";
+                    } else {
+                        risultato += " (senza batterie d'accumulo)";
+                    }
+                    risultato += tetto.value === "falda" ? " e tetto a falda." : " e tetto piano.";
+                    document.getElementById('result').innerHTML = `<h2>Risultato</h2><p>${risultato}</p>`;
+                    document.getElementById('production').innerHTML = `<h2>Produzione Annua</h2><p>${produzione}</p>`;
+                    document.getElementById('space').innerHTML = `<h2>Spazio Disponibile</h2><p>${spazio}</p>`;
+                } else {
+                    document.getElementById('result').innerHTML = '<h2>Errore</h2><p>Seleziona un\'opzione per le batterie d\'accumulo e la tipologia di tetto.</p>';
+                    document.getElementById('production').innerHTML = '';
+                    document.getElementById('space').innerHTML = '';
+                }
+            } else {
+                document.getElementById('result').innerHTML = '<h2>Errore</h2><p>Inserisci un valore valido di consumo annuo.</p>';
+                document.getElementById('production').innerHTML = '';
+                document.getElementById('space').innerHTML = '';
+            }
+        }
+    </script>
+</body>
+</html>
